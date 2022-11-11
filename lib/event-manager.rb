@@ -25,11 +25,28 @@ puts 'Event Manager Initialized!'
 
 contents = CSV.open('event_attendees.csv', headers: true, header_converters: :symbol)
 
+# contents.each do |row|
+#   # p row
+#   name = row[:first_name]
+#   zipcode = row[:zipcode]
+#   zipcode = '00000' if zipcode.nil?
+#   zipcode = '0' + zipcode while zipcode.length < 5
+#   puts "#{name} : #{zipcode}"
+# end
+
+def slick_zipcode(zipcode)
+  # zipcode = '00000' if zipcode.nil?
+  # zipcode = '0' + zipcode while zipcode.length < 5
+  # while zipcode.length > 5
+  #   zipcode.pop
+  #   zipcode
+  # end
+  # zipcode
+  zipcode.to_s.rjust(5, '0')[0..4]
+end
+
 contents.each do |row|
-  # p row
   name = row[:first_name]
-  zipcode = row[:zipcode]
-  zipcode = '00000' if zipcode.nil?
-  zipcode = '0' + zipcode while zipcode.length < 5
+  zipcode = slick_zipcode(row[:zipcode])
   puts "#{name} : #{zipcode}"
 end
